@@ -1,0 +1,17 @@
+{
+  "name": "uidrop",
+  "private": true,
+  "version": "0.2.0",
+  "workspaces": ["client", "server"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "setup": "npm install && npm run db:setup -w server",
+    "dev": "concurrently -n client,server -c cyan,magenta \"npm run dev -w client\" \"npm run dev -w server\"",
+    "dev:client": "npm run dev -w client",
+    "dev:server": "npm run dev -w server",
+    "db:setup": "npm run db:setup -w server",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server"
+  },
+  "devDependencies": { "concurrently": "^9.1.2" }
+}

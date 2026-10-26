@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// The provider is switched automatically from DATABASE_URL by scripts/set-provider.js:
+// file:./dev.db -> sqlite (local), postgresql://... -> postgresql (production).
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Component {
+  id          String   @id @default(cuid())
+  name        String
+  category    String
+  description String
+  code        String   @default("")
+  status      String   @default("pending") // pending | approved | rejected
+  authorName  String   @default("community")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status, category])
+  @@index([createdAt])
+}
